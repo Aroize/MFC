@@ -1,0 +1,10 @@
+#\bin\bash
+
+if [[ `git rev-parse --abbrev-ref HEAD` =~ ^(feature|fix|task)\/[A-Za-z0-9_\-]+\/[A-Z]+\-[0-9]+ ]];
+then
+  echo "Branch name is correct" ;
+  exit 0
+else
+  echo "Your branch name isn't proper or you are trying to push into master branch";
+  exit 1
+fi
