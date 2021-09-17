@@ -1,0 +1,17 @@
+#\bin\bash
+
+COMMIT_MSG_FILE=$1
+
+MSG=`cat $COMMIT_MSG_FILE`
+
+if [[  $MSG =~ ^[A-Z]+\-[0-9]+[[:space:]]*: ]];
+then
+  echo "Commit message matches pattern" ;
+else
+  echo "Commit message doesn't matches pattern";
+  BRANCH=`git rev-parse --abbrev-ref HEAD`
+  IFS='/'
+  read -ra ARR <<< "$str"
+  MSG="${ARR[2]}:$MSG"
+  echo $MSG > $COMMIT_MSG_FILE
+fi
