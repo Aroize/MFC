@@ -11,7 +11,7 @@ else
   echo "Commit message doesn't matches pattern";
   BRANCH=`git rev-parse --abbrev-ref HEAD`
   IFS='/'
-  read -ra ARR <<< "$str"
+  read -ra ARR <<< "$BRANCH"
   MSG="${ARR[2]}:$MSG"
   echo $MSG > $COMMIT_MSG_FILE
 fi
