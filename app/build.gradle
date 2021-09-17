@@ -46,10 +46,21 @@ dependencies {
 tasks.register("moveGitHooks") {
     var preCommit = new File(getRootDir(), "/tools/pre-commit")
     var destination = new File(getRootDir(), "/.git/hooks/pre-commit")
-    Files.copy(preCommit.toPath(), destination.toPath())
+    if (!destination.exists()) {
+        Files.copy(preCommit.toPath(), destination.toPath())
+    }
+    if (!destination.canExecute()) {
+        destination.setExecutable(true)
+    }
 
     var prepareCommit = new File(getRootDir(), "/tools/prepare-commit-msg")
     destination = new File(getRootDir(), "/.git/hooks/prepare-commit-msg")
-    Files.copy(prepareCommit.toPath(), destination.toPath())
+
+    if (!destination.exists()) {
+        Files.copy(prepareCommit.toPath(), destination.toPath())
+    }
+    if (!destination.canExecute()) {
+        destination.setExecutable(true)
+    }
 }
 build.dependsOn moveGitHooks
